@@ -1,0 +1,254 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1C0D8181B04E9D200C3A47F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1C0D8171B04E9D200C3A47F /* main.cpp */; };
+		A1C0D8221B04EB4600C3A47F /* interpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1C0D81E1B04EB4600C3A47F /* interpreter.cpp */; };
+		A1C0D8231B04EB4600C3A47F /* lexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1C0D8201B04EB4600C3A47F /* lexer.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1C0D8121B04E9D200C3A47F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A1C0D8141B04E9D200C3A47F /* go-subset-compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "go-subset-compiler"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1C0D8171B04E9D200C3A47F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A1C0D81E1B04EB4600C3A47F /* interpreter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interpreter.cpp; sourceTree = "<group>"; };
+		A1C0D81F1B04EB4600C3A47F /* interpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interpreter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		A1C0D8201B04EB4600C3A47F /* lexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lexer.cpp; sourceTree = "<group>"; };
+		A1C0D8211B04EB4600C3A47F /* lexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lexer.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1C0D8111B04E9D200C3A47F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1C0D80B1B04E9D200C3A47F = {
+			isa = PBXGroup;
+			children = (
+				A1C0D8161B04E9D200C3A47F /* go-subset-compiler */,
+				A1C0D8151B04E9D200C3A47F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1C0D8151B04E9D200C3A47F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1C0D8141B04E9D200C3A47F /* go-subset-compiler */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1C0D8161B04E9D200C3A47F /* go-subset-compiler */ = {
+			isa = PBXGroup;
+			children = (
+				A1C0D8211B04EB4600C3A47F /* lexer.h */,
+				A1C0D8201B04EB4600C3A47F /* lexer.cpp */,
+				A1C0D81F1B04EB4600C3A47F /* interpreter.h */,
+				A1C0D81E1B04EB4600C3A47F /* interpreter.cpp */,
+				A1C0D8171B04E9D200C3A47F /* main.cpp */,
+			);
+			path = "go-subset-compiler";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1C0D8131B04E9D200C3A47F /* go-subset-compiler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1C0D81B1B04E9D200C3A47F /* Build configuration list for PBXNativeTarget "go-subset-compiler" */;
+			buildPhases = (
+				A1C0D8101B04E9D200C3A47F /* Sources */,
+				A1C0D8111B04E9D200C3A47F /* Frameworks */,
+				A1C0D8121B04E9D200C3A47F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "go-subset-compiler";
+			productName = "go-subset-compiler";
+			productReference = A1C0D8141B04E9D200C3A47F /* go-subset-compiler */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1C0D80C1B04E9D200C3A47F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = KLuka;
+				TargetAttributes = {
+					A1C0D8131B04E9D200C3A47F = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = A1C0D80F1B04E9D200C3A47F /* Build configuration list for PBXProject "go-subset-compiler" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A1C0D80B1B04E9D200C3A47F;
+			productRefGroup = A1C0D8151B04E9D200C3A47F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1C0D8131B04E9D200C3A47F /* go-subset-compiler */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1C0D8101B04E9D200C3A47F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1C0D8221B04EB4600C3A47F /* interpreter.cpp in Sources */,
+				A1C0D8181B04E9D200C3A47F /* main.cpp in Sources */,
+				A1C0D8231B04EB4600C3A47F /* lexer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A1C0D8191B04E9D200C3A47F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A1C0D81A1B04E9D200C3A47F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A1C0D81C1B04E9D200C3A47F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.9;
+			};
+			name = Debug;
+		};
+		A1C0D81D1B04E9D200C3A47F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.9;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1C0D80F1B04E9D200C3A47F /* Build configuration list for PBXProject "go-subset-compiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1C0D8191B04E9D200C3A47F /* Debug */,
+				A1C0D81A1B04E9D200C3A47F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1C0D81B1B04E9D200C3A47F /* Build configuration list for PBXNativeTarget "go-subset-compiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1C0D81C1B04E9D200C3A47F /* Debug */,
+				A1C0D81D1B04E9D200C3A47F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A1C0D80C1B04E9D200C3A47F /* Project object */;
+}

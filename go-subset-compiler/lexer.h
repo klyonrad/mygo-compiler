@@ -1,5 +1,6 @@
 #ifndef LEXER_H
 #define LEXER_H
+#pragma once
 
 #include <string>
 using namespace std;

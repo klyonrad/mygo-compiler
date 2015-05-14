@@ -1,5 +1,6 @@
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
+#pragma once
 
 #include <map>
 #include "lexer.h"
