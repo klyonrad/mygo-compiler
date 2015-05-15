@@ -49,19 +49,40 @@ void Interpreter::line(){
 
 
 double Interpreter::expression(){
-    double v;
+    double value;
     Token t = lex->getLastToken();
-    if(t==Number)
-        v = lex->doubleValue;
-    else if(t==Identifier)
-        v = vars[lex->identifyer];
+    if(t==Number) {
+        value = lex->doubleValue;
+    }
+    else if(t==Identifier) {
+        value = vars[lex->identifyer];
+    }
+    else if (t == ParenthesisLeft) {
+        lex->advance();
+        value = expression(); // here recursion
+        
+        if(lex->getLastToken() == ParenthesisRight){
+            return value;
+        }
+        else{
+            throw "Missing )";
+        }
+    }
     t = lex->advance();
-    if(t == Semikolon)
-        return v;
-    else if(t == ERROR){
+    
+    if(ops.find(t) != ops.end()) {
+        lex->advance(); // consume operator
+        return ops[t](value, expression() ); //calls the corresponding function
+    } else {
+        return value;
+    }
+    
+    
+    if(t == ERROR){
         throw "Unexpected end of line (you might missed a ;)";
     }
     lex->advance();
-    return ops[t](v, expression());
+    
+    return ops[t](value, expression()); //consume operator
 }
 

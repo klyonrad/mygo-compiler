@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
                 myLexer->setProgram(program);
                 myInterpreter.start();
             }catch(const char* c){
-                cout.flush();
+                //cout.flush();
                 cout << c << endl;
             }
         }
@@ -38,7 +38,7 @@ int main(int argc, char* argv[]){
             
         }catch(const char* c){
             
-            cout.flush();
+            //cout.flush();
             cout << c << endl;
         }
     }

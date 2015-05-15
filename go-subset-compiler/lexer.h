@@ -19,9 +19,11 @@ enum Token{
     Semikolon, //4
     Deklaration,//5
     Identifier,//6
-    Number,//7
-    String,//8
-    ERROR//9
+    ParenthesisLeft,
+    ParenthesisRight,
+    Number,// = number Literal
+    String,// = string literal
+    ERROR//
 };
 
 class Lexer

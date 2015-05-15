@@ -86,6 +86,12 @@ Token Lexer::advance(){
     } else if(getActualChar() == ';'){
         token = Semikolon;
         actualChar++;
+    } else if(getActualChar() == '('){
+        token = ParenthesisLeft;
+        actualChar++;
+    } else if(getActualChar() == ')'){
+        token = ParenthesisRight;
+        actualChar++;
     }
 
     else if(getActualChar() == EOF)
