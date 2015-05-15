@@ -1,0 +1,19 @@
+Starttoken: Program
+Terminals: Identifier, Number, String, Semikolon, Deklaration, Plus, Minus, Times, Divide
+
+Program           -> Line Program | ε
+Line              -> Identifyer Deklaration Expression | Expression
+Expression        -> NumberExpression Semikolon | StringExpression Semikolon
+NumberExpression  -> NumberExpression Operator NumberExpression | (NumberExpression Operator NumberExpression) | Number | Identifyer
+StringExpression  -> StringExpression Plus StringExpression | String | Identifyer
+
+Operator          -> Plus | Minus | Times | Divide
+Semikolon         -> ;
+Deklaration       -> :=
+Plus              -> +
+Minus             -> -
+Times             -> *
+Divide            -> /
+Identifier        -> [a-zA-Z]+[a-zA-Z0-9]*
+Number            -> #*.#+ | #+
+String            -> "[a-zA-z0-9]*"
