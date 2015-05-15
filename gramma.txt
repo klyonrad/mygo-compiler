@@ -8,9 +8,7 @@ Program         -> Line Program | ε
 Line            -> Deklaration Semikolon | Expression Semikolon
 Expression      -> Literal | Identifier | Expression Operator Expression | ParenthesisLeft Expression ParenthesisRight
 Deklaration		-> Identifier := Expression
-Assignment		-> Identifier = Expression
-
-NumberExpression Semikolon | StringExpression Semikolon
+Assignment		-> Identifier = Expression ### fehlt noch
 
 Operator          -> Plus | Minus | Times | Divide
 Literal 		  -> Number | String
