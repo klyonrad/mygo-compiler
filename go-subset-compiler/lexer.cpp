@@ -1,8 +1,4 @@
 #include "lexer.h"
-#include <cstdlib>
-#include <cstdio>
-#include <map>
-#include <vector>
 
 void Lexer::setProgram(string program){
     this->program = program;

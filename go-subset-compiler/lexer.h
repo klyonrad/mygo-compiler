@@ -3,6 +3,11 @@
 #pragma once
 
 #include <string>
+#include <cstdlib>
+#include <cstdio>
+#include <map>
+#include <vector>
+#include <fstream>
 using namespace std;
 
 
