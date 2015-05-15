@@ -9,6 +9,8 @@ Interpreter::Interpreter(Lexer* lex)
     ops.insert(pair<Token, BiOperator>(Divide, [](double a, double b){return a/b;}));
 }
 
+
+
 void Interpreter::start(){
     lex->advance();
     programm();
@@ -33,7 +35,7 @@ void Interpreter::line(){
     if(t != Identifier){
         cout << expression() << endl;
     }else{ // is an identifier
-        string id = lex->identifyer;
+        std::string id = lex->identifyer;
         t = lex->advance();
         if(ops.find(t) != ops.end() ) {
             lex->advance();
@@ -43,6 +45,8 @@ void Interpreter::line(){
             deklaration(id);
             cout << "variable declared" << endl;
             
+        } else if (t == EqualSign) {
+            // do the assignment
         }
         
         if (lex->getLastToken() != Semikolon) {

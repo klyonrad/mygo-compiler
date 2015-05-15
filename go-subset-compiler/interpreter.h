@@ -23,6 +23,7 @@ public:
     double expression();
 private:
     bool isOperator(Token);// todo
+    double operatorFunction (Token, double, double); // todo
     void deklaration(string identifier);
     Lexer* lex;
     map<string, double> vars; // number variables
