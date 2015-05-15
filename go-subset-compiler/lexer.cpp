@@ -27,12 +27,12 @@ Token Lexer::advance(){
         actualChar++;
 
 
-    if(isalpha(getActualChar())){
+    if(isalpha(getActualChar())){ //this will be an identifier
         identifyer = getActualChar();
         actualChar++;
         while(isalnum(getActualChar())){
             identifyer += getActualChar();
-            advance();
+            actualChar++;
         }
         token = Identifier;
     }

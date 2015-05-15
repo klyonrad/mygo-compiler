@@ -52,29 +52,7 @@ void Interpreter::line(){
     
     lex->advance(); // necessary ??? if multiple lines probably
     
-//    if(t == Identifier){
-//        t = lex->advance();
-//        if(t==Deklaration){
-//            string id = lex->identifyer;
-//            lex->advance();
-//            vars.insert(pair<string, double>(id, expression()));
-//        }else if(t==Semikolon){
-//            cout << vars[lex->identifyer] << endl;
-//        }else if(ops.find(t) != ops.end()){
-//            string id = lex->identifyer;
-//            lex->advance();
-//            cout << ops.at(t)(vars[id], expression()) << endl;
-//        }else
-//            throw "Unexpexted Token: " + t;
-//    }else
-//        if(t==Number){
-//            cout << expression() << endl;
-//        }else
-//            throw "Unexpexted Token: " + t;
-//
-    
 }
-
 
 double Interpreter::expression(){
     double value;

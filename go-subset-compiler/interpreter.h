@@ -25,7 +25,7 @@ private:
     bool isOperator(Token);// todo
     void deklaration(string identifier);
     Lexer* lex;
-    map<string, double> vars;
+    map<string, double> vars; // number variables
     map<Token, BiOperator> ops;
 };
 
