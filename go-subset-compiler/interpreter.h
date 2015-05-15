@@ -22,6 +22,8 @@ public:
     void start();
     double expression();
 private:
+    bool isOperator(Token);// todo
+    void deklaration(string identifier);
     Lexer* lex;
     map<string, double> vars;
     map<Token, BiOperator> ops;

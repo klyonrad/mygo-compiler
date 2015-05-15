@@ -23,28 +23,56 @@ void Interpreter::programm(){
     }
 }
 
+void Interpreter::deklaration(string identifier){
+    vars.insert(pair<string, double>(identifier, expression()));
+}
+
 void Interpreter::line(){
     Token t = lex->getLastToken();
-    if(t == Identifier){
+    
+    if(t != Identifier){
+        cout << expression() << endl;
+    }else{ // is an identifier
+        string id = lex->identifyer;
         t = lex->advance();
-        if(t==Deklaration){
-            string id = lex->identifyer;
+        if(ops.find(t) != ops.end() ) {
             lex->advance();
-            vars.insert(pair<string, double>(id, expression()));
-        }else if(t==Semikolon){
-            cout << vars[lex->identifyer] << endl;
-        }else if(ops.find(t) != ops.end()){
-            string id = lex->identifyer;
+            cout << ops[t](vars[id], expression() ) << endl;
+        } else if(t == Deklaration){
             lex->advance();
-            cout << ops.at(t)(vars[id], expression()) << endl;
-        }else
-            throw "Unexpexted Token: " + t;
-    }else
-        if(t==Number){
-            cout << expression() << endl;
-        }else
-            throw "Unexpexted Token: " + t;
-    lex->advance();
+            deklaration(id);
+            cout << "variable declared" << endl;
+            
+        }
+        
+        if (lex->getLastToken() != Semikolon) {
+            throw "Unexpected Token in line(). Forgot semicolon?";
+        }
+    }
+    
+    lex->advance(); // necessary ??? if multiple lines probably
+    
+//    if(t == Identifier){
+//        t = lex->advance();
+//        if(t==Deklaration){
+//            string id = lex->identifyer;
+//            lex->advance();
+//            vars.insert(pair<string, double>(id, expression()));
+//        }else if(t==Semikolon){
+//            cout << vars[lex->identifyer] << endl;
+//        }else if(ops.find(t) != ops.end()){
+//            string id = lex->identifyer;
+//            lex->advance();
+//            cout << ops.at(t)(vars[id], expression()) << endl;
+//        }else
+//            throw "Unexpexted Token: " + t;
+//    }else
+//        if(t==Number){
+//            cout << expression() << endl;
+//        }else
+//            throw "Unexpexted Token: " + t;
+//
+    
 }
 
 
@@ -62,6 +90,7 @@ double Interpreter::expression(){
         value = expression(); // here recursion
         
         if(lex->getLastToken() == ParenthesisRight){
+            lex->advance();
             return value;
         }
         else{
