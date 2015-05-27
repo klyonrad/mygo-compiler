@@ -13,10 +13,10 @@ Productions:
   Line            -> Deklaration; | Expression;
   Expression      -> Expression Operator Expression |
                       (Expression) | Literal | Identifier 
-  Deklaration		  -> Identifier := Expression
-  Assignment		  -> Identifier = Expression
-  Operator          -> + | - | * | /
-  Literal 		      -> Float | Integer | String
+  Deklaration     -> Identifier := Expression
+  Assignment      -> Identifier = Expression
+  Operator        -> + | - | * | /
+  Literal 	  -> Float | Integer | String
 
 
 Terminal explanation:
