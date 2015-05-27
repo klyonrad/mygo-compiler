@@ -1,23 +1,26 @@
-Starttoken: Program
-#Terminals: 
-Identifier, Number, String, ParenthesisLeft, ParenthesisRight, Semikolon, Plus, Minus, Times, Divide, := ,=
+Starttoken: 
+  Program
 
-#Productions:
+Terminals: 
+  Identifier, 
+  Float,
+  Integer, 
+  String, 
+  ( ) ; + - * / := =
 
-Program         -> Line Program | ε
-Line            -> Deklaration Semikolon | Expression Semikolon
-Expression      -> Literal | Identifier | Expression Operator Expression | ParenthesisLeft Expression ParenthesisRight
-Deklaration		-> Identifier := Expression
-Assignment		-> Identifier = Expression
+Productions:
+  Program         -> Line Program | ε
+  Line            -> Deklaration; | Expression;
+  Expression      -> Expression Operator Expression |
+                      (Expression) | Literal | Identifier 
+  Deklaration		  -> Identifier := Expression
+  Assignment		  -> Identifier = Expression
+  Operator          -> + | - | * | /
+  Literal 		      -> Float | Integer | String
 
-NumberExpression Semikolon | StringExpression Semikolon
 
-Operator          -> Plus | Minus | Times | Divide
-Literal 		  -> Number | String
-
-
-terminale explanation
-##Identifier        -> [a-zA-Z]+[a-zA-Z0-9]*
-##Number            -> #*.#+ | #+
-##String            -> "[a-zA-z0-9]*"
-#Deklarationszeichen   ist das hier  :=
+Terminal explanation:
+  Identifier        -> [a-zA-Z]+[a-zA-Z0-9]*
+  Float             -> [-+]?[0-9]*\.?[0-9]+
+  Integer           -> [-+]?[0-9]+
+  String            -> \".*\"
