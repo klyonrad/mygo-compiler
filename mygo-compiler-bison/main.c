@@ -12,6 +12,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <map>
+#include <iostream>
 
 using namespace std;
 
@@ -78,7 +79,8 @@ typedef struct{
 }Test;
 
 // tests ob zwei Zahlen gleich sind, hat dabei aber eine gewisse Toleranz
-bool test(float expected, float actual){
+bool test(float expected, float actual, std::string term){
+	std::cout << term << " |||  ";
   printf("expected: %f actual: %f\n", actual, expected);
   float diff = expected < actual ? actual-expected : expected-actual;
   return diff < 0.001;
@@ -109,7 +111,7 @@ int main(void)
     for(int i = 0; i<tests.size();i++){
       e = getAST(tests[i].term.c_str());
       tests[i].result = evaluate(e);
-      if(!test(tests[i].expected, tests[i].result)){
+      if(!test(tests[i].expected, tests[i].result, tests[i].term) ){
         testsFailed++;
         printf("Test %d \033[1;31mfailed\033[0m '%s' is %f but was expected to be %f.\n", i+1, tests[i].term.c_str(), tests[i].result, tests[i].expected);
       }else
