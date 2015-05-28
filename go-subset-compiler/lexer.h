@@ -18,7 +18,8 @@ enum Token{
     Divide,//3
     Semikolon, //4
     Deklaration,//5
-    Identifier,//6
+    EqualSign,
+    Identifier,
     ParenthesisLeft,
     ParenthesisRight,
     Number,// = number Literal
