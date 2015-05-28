@@ -90,21 +90,23 @@ int main(void)
 {
     SExpression *e = NULL;
     vector<Test> tests;
-    // simple int Tests
-    tests.push_back({"4/4", 1.0, 0});
-    tests.push_back({"4-4", 0.0, 0});
-    tests.push_back({"4*4", 16, 0});
-    tests.push_back({"4+4", 8.0, 0});
-    // simple float Tests
-    tests.push_back({"3.0/4.0", 0.75, 0});
-    tests.push_back({"4.5-3.0", 1.5, 0});
-    tests.push_back({"2.2*1.5", 3.3, 0});
-    tests.push_back({"2.2+1.5", 3.7, 0});
-    tests.push_back({"12", 12.0, 0});
-    tests.push_back({"a := 15; a;", 15.0, 0});
-
-    //komplexe Tests
-    tests.push_back({"4 + 2 * 10 - 3 / ( 5 + 1 )", 23.5});
+	
+	tests = {
+		// simple int Tests
+		{"4/4", 1.0, 0},
+		{"4-4", 0.0, 0},
+		{"4*4", 16, 0},
+		{"4+4", 8.0, 0},
+		// simple float Tests
+		{"3.0/4.0", 0.75, 0},
+		{"4.5-3.0", 1.5, 0},
+		{"2.2*1.5", 3.3, 0},
+		{"2.2+1.5", 3.7, 0},
+		{"12", 12.0, 0},
+		{"a := 15; a;", 15.0, 0},
+		//komplexe Tests
+		{"4 + 2 * 10 - 3 / ( 5 + 1 )", 23.5}
+	};
 
     printf("\033[1;33mTesting Build\033[0m (%d Tests)..\n", tests.size());
     int testsFailed = 0;

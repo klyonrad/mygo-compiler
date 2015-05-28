@@ -341,4 +341,9 @@ sftp-config.json
 *.bak
 
 ### flex output ###
+mygo-compiler-bison/test.dSYM
 lex.yy.c
+Lexer.c
+mygo-compiler-bison/Parser.h
+mygo-compiler-bison/Parser.c
+mygo-compiler-bison/Lexer.h
