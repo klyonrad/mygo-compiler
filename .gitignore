@@ -340,3 +340,5 @@ sftp-config.json
 # Notepad++ backups #
 *.bak
 
+### flex output ###
+lex.yy.c
