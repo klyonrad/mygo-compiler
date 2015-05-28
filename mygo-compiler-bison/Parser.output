@@ -1,0 +1,236 @@
+Terminale, die in Grammatik unbenutzt sind
+
+   '+'
+   '-'
+   '*'
+   '/'
+
+
+Grammatik
+
+    0 $accept: input $end
+
+    1 input: expr
+
+    2 expr: expr TOKEN_PLUS expr
+    3     | expr TOKEN_MINUS expr
+    4     | expr TOKEN_MULTIPLY expr
+    5     | expr TOKEN_DIVIDE expr
+    6     | TOKEN_LPAREN expr TOKEN_RPAREN
+    7     | TOKEN_NUMBER
+    8     | TOKEN_FLOAT
+
+
+Terminale und die Regeln, in denen sie verwendet werden
+
+$end (0) 0
+'*' (42)
+'+' (43)
+'-' (45)
+'/' (47)
+error (256)
+TOKEN_PLUS (258) 2
+TOKEN_MINUS (259) 3
+TOKEN_MULTIPLY (260) 4
+TOKEN_DIVIDE (261) 5
+TOKEN_LPAREN (262) 6
+TOKEN_RPAREN (263) 6
+TOKEN_NUMBER (264) 7
+TOKEN_FLOAT (265) 8
+
+
+Nicht-Terminal und die Regeln, in denen sie verwendet werden
+
+$accept (15)
+    auf der linken Seite: 0
+input (16)
+    auf der linken Seite: 1, auf der rechten Seite: 0
+expr (17)
+    auf der linken Seite: 2 3 4 5 6 7 8, auf der rechten Seite: 1 2
+    3 4 5 6
+
+
+Zustand 0
+
+    0 $accept: . input $end
+
+    TOKEN_LPAREN  schiebe und gehe zu Zustand 1 über
+    TOKEN_NUMBER  schiebe und gehe zu Zustand 2 über
+    TOKEN_FLOAT   schiebe und gehe zu Zustand 3 über
+
+    input  gehe zu Zustand 4 über
+    expr   gehe zu Zustand 5 über
+
+
+Zustand 1
+
+    6 expr: TOKEN_LPAREN . expr TOKEN_RPAREN
+
+    TOKEN_LPAREN  schiebe und gehe zu Zustand 1 über
+    TOKEN_NUMBER  schiebe und gehe zu Zustand 2 über
+    TOKEN_FLOAT   schiebe und gehe zu Zustand 3 über
+
+    expr  gehe zu Zustand 6 über
+
+
+Zustand 2
+
+    7 expr: TOKEN_NUMBER .
+
+    $default  reduziere mit Regel 7 (expr)
+
+
+Zustand 3
+
+    8 expr: TOKEN_FLOAT .
+
+    $default  reduziere mit Regel 8 (expr)
+
+
+Zustand 4
+
+    0 $accept: input . $end
+
+    $end  schiebe und gehe zu Zustand 7 über
+
+
+Zustand 5
+
+    1 input: expr .
+    2 expr: expr . TOKEN_PLUS expr
+    3     | expr . TOKEN_MINUS expr
+    4     | expr . TOKEN_MULTIPLY expr
+    5     | expr . TOKEN_DIVIDE expr
+
+    TOKEN_PLUS      schiebe und gehe zu Zustand 8 über
+    TOKEN_MINUS     schiebe und gehe zu Zustand 9 über
+    TOKEN_MULTIPLY  schiebe und gehe zu Zustand 10 über
+    TOKEN_DIVIDE    schiebe und gehe zu Zustand 11 über
+
+    $default  reduziere mit Regel 1 (input)
+
+
+Zustand 6
+
+    2 expr: expr . TOKEN_PLUS expr
+    3     | expr . TOKEN_MINUS expr
+    4     | expr . TOKEN_MULTIPLY expr
+    5     | expr . TOKEN_DIVIDE expr
+    6     | TOKEN_LPAREN expr . TOKEN_RPAREN
+
+    TOKEN_PLUS      schiebe und gehe zu Zustand 8 über
+    TOKEN_MINUS     schiebe und gehe zu Zustand 9 über
+    TOKEN_MULTIPLY  schiebe und gehe zu Zustand 10 über
+    TOKEN_DIVIDE    schiebe und gehe zu Zustand 11 über
+    TOKEN_RPAREN    schiebe und gehe zu Zustand 12 über
+
+
+Zustand 7
+
+    0 $accept: input $end .
+
+    $default  annehmen
+
+
+Zustand 8
+
+    2 expr: expr TOKEN_PLUS . expr
+
+    TOKEN_LPAREN  schiebe und gehe zu Zustand 1 über
+    TOKEN_NUMBER  schiebe und gehe zu Zustand 2 über
+    TOKEN_FLOAT   schiebe und gehe zu Zustand 3 über
+
+    expr  gehe zu Zustand 13 über
+
+
+Zustand 9
+
+    3 expr: expr TOKEN_MINUS . expr
+
+    TOKEN_LPAREN  schiebe und gehe zu Zustand 1 über
+    TOKEN_NUMBER  schiebe und gehe zu Zustand 2 über
+    TOKEN_FLOAT   schiebe und gehe zu Zustand 3 über
+
+    expr  gehe zu Zustand 14 über
+
+
+Zustand 10
+
+    4 expr: expr TOKEN_MULTIPLY . expr
+
+    TOKEN_LPAREN  schiebe und gehe zu Zustand 1 über
+    TOKEN_NUMBER  schiebe und gehe zu Zustand 2 über
+    TOKEN_FLOAT   schiebe und gehe zu Zustand 3 über
+
+    expr  gehe zu Zustand 15 über
+
+
+Zustand 11
+
+    5 expr: expr TOKEN_DIVIDE . expr
+
+    TOKEN_LPAREN  schiebe und gehe zu Zustand 1 über
+    TOKEN_NUMBER  schiebe und gehe zu Zustand 2 über
+    TOKEN_FLOAT   schiebe und gehe zu Zustand 3 über
+
+    expr  gehe zu Zustand 16 über
+
+
+Zustand 12
+
+    6 expr: TOKEN_LPAREN expr TOKEN_RPAREN .
+
+    $default  reduziere mit Regel 6 (expr)
+
+
+Zustand 13
+
+    2 expr: expr . TOKEN_PLUS expr
+    2     | expr TOKEN_PLUS expr .
+    3     | expr . TOKEN_MINUS expr
+    4     | expr . TOKEN_MULTIPLY expr
+    5     | expr . TOKEN_DIVIDE expr
+
+    TOKEN_MINUS     schiebe und gehe zu Zustand 9 über
+    TOKEN_MULTIPLY  schiebe und gehe zu Zustand 10 über
+    TOKEN_DIVIDE    schiebe und gehe zu Zustand 11 über
+
+    $default  reduziere mit Regel 2 (expr)
+
+
+Zustand 14
+
+    2 expr: expr . TOKEN_PLUS expr
+    3     | expr . TOKEN_MINUS expr
+    3     | expr TOKEN_MINUS expr .
+    4     | expr . TOKEN_MULTIPLY expr
+    5     | expr . TOKEN_DIVIDE expr
+
+    TOKEN_MULTIPLY  schiebe und gehe zu Zustand 10 über
+    TOKEN_DIVIDE    schiebe und gehe zu Zustand 11 über
+
+    $default  reduziere mit Regel 3 (expr)
+
+
+Zustand 15
+
+    2 expr: expr . TOKEN_PLUS expr
+    3     | expr . TOKEN_MINUS expr
+    4     | expr . TOKEN_MULTIPLY expr
+    4     | expr TOKEN_MULTIPLY expr .
+    5     | expr . TOKEN_DIVIDE expr
+
+    TOKEN_DIVIDE  schiebe und gehe zu Zustand 11 über
+
+    $default  reduziere mit Regel 4 (expr)
+
+
+Zustand 16
+
+    2 expr: expr . TOKEN_PLUS expr
+    3     | expr . TOKEN_MINUS expr
+    4     | expr . TOKEN_MULTIPLY expr
+    5     | expr . TOKEN_DIVIDE expr
+    5     | expr TOKEN_DIVIDE expr .
+
+    $default  reduziere mit Regel 5 (expr)
