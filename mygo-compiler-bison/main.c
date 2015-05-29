@@ -45,6 +45,15 @@ SExpression *getAST(const char *expr)
     return expression;
 }
 
+string evaluateId(SExpression *e){
+    if(e->type == eIDENTIFIER)
+        return string(e->svalue);
+    else {
+        cout << "Fehlerhafter Identifier" << endl;
+        return "";
+    }
+}
+
 float evaluate(SExpression *e)
 {
     switch (e->type) {
@@ -61,9 +70,9 @@ float evaluate(SExpression *e)
         case eMINUS:
             return evaluate(e->left) - evaluate(e->right);
         case eIDENTIFIER:
-            return fvars[e->svalue];
+            return fvars[evaluateId(e->left)];
         case eDEKLERATION:
-            fvars[e->svalue] = evaluate(e->right);
+            fvars[evaluateId(e->left)] = evaluate(e->right);
             return fvars[e->svalue];
         default:
             assert(false);
@@ -88,22 +97,26 @@ bool test(float expected, float actual, std::string term){
 
 int main(void)
 {
+	//bison debug option:
+	yydebug = 1;
+	
     SExpression *e = NULL;
     vector<Test> tests;
 	
 	tests = {
-		// simple int Tests
-		{"4/4", 1.0, 0},
-		{"4-4", 0.0, 0},
-		{"4*4", 16, 0},
-		{"4+4", 8.0, 0},
-		// simple float Tests
-		{"3.0/4.0", 0.75, 0},
-		{"4.5-3.0", 1.5, 0},
-		{"2.2*1.5", 3.3, 0},
-		{"2.2+1.5", 3.7, 0},
-		{"12", 12.0, 0},
-		{"a := 15; a;", 15.0, 0},
+//		// simple int Tests
+//		{"4/4", 1.0, 0},
+//		{"4-4", 0.0, 0},
+//		{"4*4", 16, 0},
+//		{"4+4", 8.0, 0},
+//		// simple float Tests
+//		{"3.0/4.0", 0.75, 0},
+//		{"4.5-3.0", 1.5, 0},
+//		{"2.2*1.5", 3.3, 0},
+        {"2.2+1.5", 3.7, 0},
+//		{"12", 12.0, 0},
+        {"a := 15", 0.0, 0},
+		{"a := 15 \n a", 15.0, 0},
 		//komplexe Tests
 		{"4 + 2 * 10 - 3 / ( 5 + 1 )", 23.5}
 	};

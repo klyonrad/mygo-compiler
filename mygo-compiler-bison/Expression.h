@@ -6,6 +6,7 @@
 #define __EXPRESSION_H__
 
 #include <string>
+#include <iostream>
 using namespace std;
 
 /**
@@ -54,7 +55,7 @@ SExpression *createFloat(float value);
 
 
 
-SExpression *createDekleration(string name, SExpression *right);
+SExpression *createDekleration(SExpression *left, SExpression *right);
 
 /**
  * @brief It creates an identifier

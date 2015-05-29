@@ -347,3 +347,8 @@ Lexer.c
 mygo-compiler-bison/Parser.h
 mygo-compiler-bison/Parser.c
 mygo-compiler-bison/Lexer.h
+test
+go-bison.config
+go-bison.files
+go-bison.includes
+go-bison.creator

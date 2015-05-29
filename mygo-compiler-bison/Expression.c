@@ -63,17 +63,16 @@ SExpression *createFloat(float value)
     return b;
 }
 
-SExpression *createDekleration(string name, SExpression *right){
+SExpression *createDekleration(SExpression *left, SExpression *right){
+    cout << "createDekleration called" << endl;
       SExpression *b = allocateExpression();
 
       if (b == NULL)
           return NULL;
 
       b->type = eDEKLERATION;
-      b->left = NULL;
+      b->left = left;
       b->right = right;
-      b->svalue= name;
-
       return b;
 }
 

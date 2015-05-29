@@ -8,6 +8,7 @@
 #include "Expression.h"
 #include "Parser.h"
 #include "Lexer.h"
+#include <stdio.h>
 
 int yyerror(SExpression **expression, yyscan_t scanner, const char *msg) {
   printf("%s", msg);
@@ -57,6 +58,7 @@ typedef void* yyscan_t;
 %token TOKEN_DEKLERATION;
 
 %type <expression> expr
+%type <expression> id
 
 %%
 
@@ -65,7 +67,7 @@ input
     ;
 
 expr
-    : TOKEN_IDENTIFIER TOKEN_DEKLERATION expr[R] { $$ = createDekleration(yylval.svalue, $R);}
+    : id TOKEN_DEKLERATION expr { $$ = createDekleration($1, $3);}
     | expr[L] TOKEN_PLUS expr[R] { $$ = createOperation( ePLUS, $L, $R ); }
     | expr[L] TOKEN_MINUS expr[R] { $$ = createOperation( eMINUS, $L, $R ); }
     | expr[L] TOKEN_MULTIPLY expr[R] { $$ = createOperation( eMULTIPLY, $L, $R ); }
@@ -73,7 +75,9 @@ expr
     | TOKEN_LPAREN expr[E] TOKEN_RPAREN { $$ = $E; }
     | TOKEN_NUMBER { $$ = createNumber($1); }
     | TOKEN_FLOAT { $$ = createFloat($1); }
-    | TOKEN_IDENTIFIER { $$ = createVar($1); }
     ;
+
+id
+	: TOKEN_IDENTIFIER { $$ = createVar($1); }
 
 %%

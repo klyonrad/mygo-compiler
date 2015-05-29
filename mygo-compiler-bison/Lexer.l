@@ -35,7 +35,10 @@ IDENTIFIER  [a-zA-Z]+[a-zA-Z0-9]*
 {WS}            { /* Skip blanks. */ }
 {NUMBER}        { sscanf(yytext, "%d", &yylval->value); return TOKEN_NUMBER; }
 {FLOAT}         { sscanf(yytext, "%f", &yylval->fvalue); return TOKEN_FLOAT; }
-{IDENTIFIER}    { sscanf(yytext, "%s", &yylval->svalue); return TOKEN_IDENTIFIER; }
+{IDENTIFIER}    { /*sscanf(yytext, "%s", &yylval->svalue);*/ yylval->svalue = strdup(yytext);
+					/* memory leak! http://flex.sourceforge.net/manual/A-Note-About-yytext-And-Memory.html*/ 
+					return TOKEN_IDENTIFIER; 
+				}
 
 {DEFINE}        { return TOKEN_DEKLERATION; }
 {MULTIPLY}      { return TOKEN_MULTIPLY; }
