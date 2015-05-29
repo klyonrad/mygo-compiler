@@ -24,6 +24,7 @@ MULTIPLY    "*"
 DIVIDE      "/"
 MINUS       "-"
 DEFINE    ":="
+SEMICOLON	";"
 
 NUMBER      [0-9]+
 WS          [ \r\n\t]*
@@ -39,7 +40,7 @@ IDENTIFIER  [a-zA-Z]+[a-zA-Z0-9]*
 					/* memory leak! http://flex.sourceforge.net/manual/A-Note-About-yytext-And-Memory.html*/ 
 					return TOKEN_IDENTIFIER; 
 				}
-
+{SEMICOLON}		{ return TOKEN_SEMICOLON; }
 {DEFINE}        { return TOKEN_DEKLERATION; }
 {MULTIPLY}      { return TOKEN_MULTIPLY; }
 {PLUS}          { return TOKEN_PLUS; }

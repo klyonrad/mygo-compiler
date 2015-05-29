@@ -35,6 +35,7 @@ SExpression *createVar(char* name){
 
     b->type = eIDENTIFIER;
     b->svalue = string(name);
+    return b;
 }
 
 SExpression *createNumber(int value)
@@ -74,6 +75,19 @@ SExpression *createDekleration(SExpression *left, SExpression *right){
       b->left = left;
       b->right = right;
       return b;
+}
+
+
+SExpression *createLine(SExpression *line, SExpression *theOthers){
+    SExpression *b = allocateExpression();
+
+    if (b == NULL)
+        return NULL;
+
+    b->type = eLINE;
+    b->left = line;
+    b->right = theOthers;
+    return b;
 }
 
 SExpression *createOperation(EOperationType type, SExpression *left, SExpression *right)

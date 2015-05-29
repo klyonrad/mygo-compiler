@@ -57,6 +57,11 @@ string evaluateId(SExpression *e){
 float evaluate(SExpression *e)
 {
     switch (e->type) {
+        case eLINE: {
+            float v1 = evaluate(e->left);
+            float v2 = evaluate(e->right);
+            return (v1==NULL) ? v1 : v2;
+    }
         case eVALUE:
             return e->value;
         case eFLOAT:
@@ -70,7 +75,7 @@ float evaluate(SExpression *e)
         case eMINUS:
             return evaluate(e->left) - evaluate(e->right);
         case eIDENTIFIER:
-            return fvars[evaluateId(e->left)];
+            return fvars[e->svalue];
         case eDEKLERATION:
             fvars[evaluateId(e->left)] = evaluate(e->right);
             return fvars[e->svalue];
@@ -98,27 +103,34 @@ bool test(float expected, float actual, std::string term){
 int main(void)
 {
 	//bison debug option:
-	yydebug = 1;
+    yydebug = 0;
 	
     SExpression *e = NULL;
     vector<Test> tests;
 	
+    fvars["b"] = 10.0;
+
 	tests = {
-//		// simple int Tests
-//		{"4/4", 1.0, 0},
-//		{"4-4", 0.0, 0},
-//		{"4*4", 16, 0},
-//		{"4+4", 8.0, 0},
-//		// simple float Tests
-//		{"3.0/4.0", 0.75, 0},
-//		{"4.5-3.0", 1.5, 0},
-//		{"2.2*1.5", 3.3, 0},
-        {"2.2+1.5", 3.7, 0},
-//		{"12", 12.0, 0},
-        {"a := 15", 0.0, 0},
-		{"a := 15 \n a", 15.0, 0},
+        // simple int Tests
+        {"4/4;", 1.0, 0},
+        {"4-4;", 0.0, 0},
+        {"4*4;", 16, 0},
+        {"4+4;", 8.0, 0},
+        // simple float Tests
+        {"3.0/4.0;", 0.75, 0},
+        {"4.5-3.0;", 1.5, 0},
+        {"2.2*1.5;", 3.3, 0},
+        {"2.2+1.5;", 3.7, 0},
+        {"12;", 12.0, 0},
+        {"5 + 5; 2+2;", 4.0, 0},
+        {"a := 15; 12;", 12.0, 0},
+        {"b;", 10, 0},
+        {"a := 15;", 0.0, 0},
+        {"a := 15; a;", 15.0, 0},
+		{"a := 15; a + 5;", 20.0, 0},
 		//komplexe Tests
-		{"4 + 2 * 10 - 3 / ( 5 + 1 )", 23.5}
+        {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5},
+        {"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5}
 	};
 
     printf("\033[1;33mTesting Build\033[0m (%d Tests)..\n", tests.size());

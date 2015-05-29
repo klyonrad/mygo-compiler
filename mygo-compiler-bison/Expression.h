@@ -21,7 +21,8 @@ typedef enum tagEOperationType
     eMINUS,
     eDIVIDE,
     eDEKLERATION,
-    eIDENTIFIER
+    eIDENTIFIER,
+    eLINE
 } EOperationType;
 
 /**
@@ -56,6 +57,10 @@ SExpression *createFloat(float value);
 
 
 SExpression *createDekleration(SExpression *left, SExpression *right);
+
+
+SExpression *createLine(SExpression*, SExpression*);
+
 
 /**
  * @brief It creates an identifier
