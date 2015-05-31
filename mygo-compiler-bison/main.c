@@ -129,8 +129,9 @@ int main(void)
         {"a := 15; a;", 15.0, 0},
 		{"a := 15; a + 5;", 20.0, 0},
 		//komplexe Tests
-        {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5},
-        {"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5}
+        {"vier := 4; fuenf := 5; vier + fuenf;", 9.0, 0},
+        {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5, 0},
+        {"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5, 0}
 	};
 
     printf("\033[1;33mTesting Build\033[0m (%d Tests)..\n", tests.size());
