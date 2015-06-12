@@ -102,6 +102,9 @@ float evaluate(SExpression *e)
         case eDEKLERATION:
             fvars[evaluateId(e->left)] = evaluate(e->right);
             return fvars[e->svalue];
+        case ePRINT:
+            cout << calculate(e->left) << endl;
+            break;
     case eEOF:
         return 0;
         default:
@@ -162,6 +165,11 @@ void printGraph (SExpression *e) {
         printGraph(e->right);
         cout << ")";
         break;
+    case ePRINT:
+        cout << "println(";
+        printGraph(e->left);
+        cout << ")" << endl;
+        break;
     case eEOF:
       // TODO
       break;
@@ -218,7 +226,8 @@ int main(void)
 		//komplexe Tests
         {"vier := 4.5; fuenf := 4.5; vier + fuenf;", 9.0, 0},
         {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5, 0},
-        {"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5, 0}
+        {"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5, 0},
+        {"println(5);", 0, 0}
 	};
 
     printf("\033[1;33mTesting Build\033[0m (%d Tests)..\n", tests.size());

@@ -117,6 +117,20 @@ SExpression *createEOF() { // the end of our tree
     return b;
 }
 
+SExpression *createPrint( SExpression *param ) {
+    SExpression *b = allocateExpression();
+
+    if (b == NULL)
+        return NULL;
+
+    b->type = ePRINT;
+    b->left = param;
+    b->right = NULL;
+
+    return b;
+
+}
+
 void deleteExpression(SExpression *b)
 {
     if (b == NULL)

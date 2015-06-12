@@ -25,6 +25,7 @@ DIVIDE      "/"
 MINUS       "-"
 DEFINE    ":="
 SEMICOLON	";"
+PRINTLN       "println"
 
 NUMBER      [0-9]+
 WS          [ \r\n\t]*
@@ -32,6 +33,7 @@ FLOAT       [0-9]*\.[0-9]+
 IDENTIFIER  [a-zA-Z]+[a-zA-Z0-9]*
 
 %%
+{PRINTLN}       { return TOKEN_PRINT; } /* needs to be ABOVE identifier rule, so that println is not confused with an identifier */
 
 {WS}            { /* Skip blanks. */ }
 {NUMBER}        { sscanf(yytext, "%d", &yylval->value); return TOKEN_NUMBER; }

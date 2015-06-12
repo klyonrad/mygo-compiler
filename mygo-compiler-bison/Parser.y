@@ -57,6 +57,7 @@ typedef void* yyscan_t;
 %token <fvalue> TOKEN_FLOAT
 %token TOKEN_DEKLERATION;
 %token TOKEN_SEMICOLON;
+%token TOKEN_PRINT;
 
 %type <expression> expr
 %type <expression> id
@@ -82,6 +83,7 @@ expr
     | TOKEN_NUMBER { $$ = createNumber($1); }
     | TOKEN_FLOAT { $$ = createFloat($1); }
     | id { $$ = $1; }
+    | TOKEN_PRINT TOKEN_LPAREN expr TOKEN_RPAREN { $$ = createPrint ($3); }
 	;
 
 id
