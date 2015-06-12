@@ -22,7 +22,8 @@ typedef enum tagEOperationType
     eDIVIDE,
     eDEKLERATION,
     eIDENTIFIER,
-    eLINE
+    eLINE,
+    eEOF
 } EOperationType;
 
 /**
@@ -79,6 +80,7 @@ SExpression *createVar(char* name);
  */
 SExpression *createOperation(EOperationType type, SExpression *left, SExpression *right);
 
+SExpression *createEOF();
 /**
  * @brief Deletes a expression
  * @param b The expression

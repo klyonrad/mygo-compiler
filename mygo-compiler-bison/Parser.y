@@ -66,14 +66,12 @@ typedef void* yyscan_t;
 %%
 
 input
-    : line TOKEN_SEMICOLON input { $$ = createLine($1, $3); }
-    | {}
+    : line { *expression = $1; }
     ;
-	
 line
-    : expr { *expression = $1; }
-    ;
-	
+    : expr TOKEN_SEMICOLON line { $$ = createLine($1, $3); }
+    | { $$ = createEOF (); }
+    ;	
 expr
     : id TOKEN_DEKLERATION expr { $$ = createDekleration($1, $3);}
     | expr[L] TOKEN_PLUS expr[R] { $$ = createOperation( ePLUS, $L, $R ); }

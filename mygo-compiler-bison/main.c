@@ -54,35 +54,121 @@ string evaluateId(SExpression *e){
     }
 }
 
+float calculate(SExpression *e) {
+   switch (e->type) {
+    case eVALUE:
+        return e->value;
+    case eFLOAT:
+        return e->fvalue;
+    case eMULTIPLY:
+        return calculate(e->left) * calculate(e->right);
+    case ePLUS:
+        return calculate(e->left) + calculate(e->right);
+    case eDIVIDE:
+        return calculate(e->left) / calculate(e->right);
+    case eMINUS:
+        return calculate(e->left) - calculate(e->right);
+    case eIDENTIFIER:
+        return fvars[e->svalue];
+    default:
+        assert(false);
+        return 0;
+   }
+}
+
 float evaluate(SExpression *e)
 {
     switch (e->type) {
         case eLINE: {
             float v1 = evaluate(e->left);
             float v2 = evaluate(e->right);
-            return (v1==NULL) ? v1 : v2;
+            //return (v2==NULL) ? v1 : v2;
+            return (v2==0)?v1:v2;
     }
         case eVALUE:
             return e->value;
         case eFLOAT:
             return e->fvalue;
         case eMULTIPLY:
-            return evaluate(e->left) * evaluate(e->right);
+            return calculate(e->left) * calculate(e->right);
         case ePLUS:
-            return evaluate(e->left) + evaluate(e->right);
+            return calculate(e->left) + calculate(e->right);
         case eDIVIDE:
-            return evaluate(e->left) / evaluate(e->right);
+            return calculate(e->left) / calculate(e->right);
         case eMINUS:
-            return evaluate(e->left) - evaluate(e->right);
+            return calculate(e->left) - calculate(e->right);
         case eIDENTIFIER:
             return fvars[e->svalue];
         case eDEKLERATION:
             fvars[evaluateId(e->left)] = evaluate(e->right);
             return fvars[e->svalue];
+    case eEOF:
+        return 0;
         default:
             assert(false);
             // shouldn't be here
             return 0;
+    }
+}
+
+void printGraph (SExpression *e) {
+  switch (e->type) {
+    case eLINE:
+        printGraph(e->left);
+        std::cout << endl;
+        printGraph(e->right);
+        break;
+
+    case eVALUE:
+        cout << e->value;
+        break;
+    case eFLOAT:
+        cout << e->fvalue;
+        break;
+    case eMULTIPLY:
+        cout << "(";
+        printGraph(e->left);
+        std::cout << ") * (" ;
+        printGraph(e->right);
+        cout << ")";
+        break;
+    case ePLUS:
+        cout << "(";
+        printGraph(e->left);
+        std::cout << ") + (" ;
+        printGraph(e->right);
+        cout << ")";
+        break;
+    case eDIVIDE:
+        cout << "(";
+        printGraph(e->left);
+        std::cout << ") / (" ;
+        printGraph(e->right);
+        cout << ")";
+        break;
+    case eMINUS:
+        cout << "(";
+        printGraph(e->left);
+        std::cout << ") - (" ;
+        printGraph(e->right);
+        cout << ")";
+        break;
+    case eIDENTIFIER:
+        cout << e->svalue;
+        break;
+    case eDEKLERATION:
+        printGraph(e->left);
+        std::cout << " := (" ;
+        printGraph(e->right);
+        cout << ")";
+        break;
+    case eEOF:
+      // TODO
+      break;
+    default:
+        assert(false);
+        // shouldn't be here
+        cout << "error!";
     }
 }
 
@@ -95,7 +181,8 @@ typedef struct{
 // tests ob zwei Zahlen gleich sind, hat dabei aber eine gewisse Toleranz
 bool test(float expected, float actual, std::string term){
 	std::cout << term << " |||  ";
-  printf("expected: %f actual: %f\n", actual, expected);
+  //printf("expected: %f actual: %f\n", actual, expected);
+    std::cout << "expected: " << expected << " actual: " << actual << endl;
   float diff = expected < actual ? actual-expected : expected-actual;
   return diff < 0.001;
 }
@@ -126,10 +213,10 @@ int main(void)
         {"a := 15; 12;", 12.0, 0},
         {"b;", 10, 0},
         {"a := 15;", 0.0, 0},
-        {"a := 15; a;", 15.0, 0},
-		{"a := 15; a + 5;", 20.0, 0},
+        {"a := ( 7 + 8 ); a;", 15.0, 0},
+        {"a := 15; c:= a + 5; c;", 20.0, 0},
 		//komplexe Tests
-        {"vier := 4; fuenf := 5; vier + fuenf;", 9.0, 0},
+        {"vier := 4.5; fuenf := 4.5; vier + fuenf;", 9.0, 0},
         {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5, 0},
         {"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5, 0}
 	};
@@ -139,12 +226,14 @@ int main(void)
     for(int i = 0; i<tests.size();i++){
       e = getAST(tests[i].term.c_str());
       tests[i].result = evaluate(e);
+      //printGraph(e); cout << endl;
       if(!test(tests[i].expected, tests[i].result, tests[i].term) ){
         testsFailed++;
-        printf("Test %d \033[1;31mfailed\033[0m '%s' is %f but was expected to be %f.\n", i+1, tests[i].term.c_str(), tests[i].result, tests[i].expected);
+        printf("Test %d \033[1;31mfailed\033[0m '%s'" /*is %f but was expected to be %f.\n"*/, i+1, tests[i].term.c_str()/*, tests[i].result, tests[i].expected*/ );
+        cout << " is " << tests[i].result << " but was expected to be " << tests[i].expected << " ." << endl;
       }else
         printf("Test %d \033[1;32mpassed\033[0m\n", i);
-      deleteExpression(e);
+        //deleteExpression(e);
     }
     printf("%f%% passed. %lu passed, %d failed.\n", ((float)tests.size()-testsFailed)*100/tests.size(), (tests.size()-testsFailed), testsFailed);
     return 0;

@@ -104,6 +104,19 @@ SExpression *createOperation(EOperationType type, SExpression *left, SExpression
     return b;
 }
 
+SExpression *createEOF() { // the end of our tree
+    SExpression *b = allocateExpression();
+
+    if (b == NULL)
+        return NULL;
+
+    b->type = eEOF;
+    b->left = NULL;
+    b->right = NULL;
+
+    return b;
+}
+
 void deleteExpression(SExpression *b)
 {
     if (b == NULL)
@@ -112,5 +125,6 @@ void deleteExpression(SExpression *b)
     deleteExpression(b->left);
     deleteExpression(b->right);
 
-    free(b);
+    if (b != NULL)
+        free(b);
 }
