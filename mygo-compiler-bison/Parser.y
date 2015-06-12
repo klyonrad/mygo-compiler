@@ -11,7 +11,8 @@
 #include <stdio.h>
 
 int yyerror(SExpression **expression, yyscan_t scanner, const char *msg) {
-  printf("%s", msg);
+  std::cout << msg << endl;
+  //printf("%s", msg);
     // Add error handling routine as needed
 }
 
@@ -30,6 +31,7 @@ typedef void* yyscan_t;
 %defines "Parser.h"
 
 %define api.pure
+%define parse.error verbose
 %lex-param   { yyscan_t scanner }
 %parse-param { SExpression **expression }
 %parse-param { yyscan_t scanner }
