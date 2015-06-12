@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <map>
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -111,6 +112,45 @@ float evaluate(SExpression *e)
             assert(false);
             // shouldn't be here
             return 0;
+    }
+}
+
+string OpTypeToString(tagEOperationType e) {
+    switch(e){
+    case eVALUE:
+        return "eValue";
+    case eFLOAT:
+        return "eFloat";
+    case eMULTIPLY:
+        return "eMultiply";
+    case ePLUS:
+        return "ePlus";
+    case eMINUS:
+        return "eMinus";
+    case eDIVIDE:
+        return "eDivide";
+    case eDEKLERATION:
+        return "eDEKLERATION";
+    case eIDENTIFIER:
+        return "eIDENTIFIER";
+    case eLINE:
+        return "eLINE";
+    case eEOF:
+        return "eEOF";
+    case ePRINT:
+        return "ePRINT";
+    }
+}
+
+void printTree (SExpression *p, int indent=0) //copied from http://stackoverflow.com/a/13484997/1796645
+{
+    if(p != NULL) {
+        if(p->left) printTree(p->left, indent+4);
+        if(p->right) printTree(p->right, indent+4);
+        if (indent) {
+            std::cout << std::setw(indent) << ' ';
+        }
+        cout<< OpTypeToString( p->type ) << endl;
     }
 }
 
@@ -235,7 +275,7 @@ int main(void)
     for(int i = 0; i<tests.size();i++){
       e = getAST(tests[i].term.c_str());
       tests[i].result = evaluate(e);
-      //printGraph(e); cout << endl;
+      printTree(e); cout << endl;
       if(!test(tests[i].expected, tests[i].result, tests[i].term) ){
         testsFailed++;
         printf("Test %d \033[1;31mfailed\033[0m '%s'" /*is %f but was expected to be %f.\n"*/, i+1, tests[i].term.c_str()/*, tests[i].result, tests[i].expected*/ );
