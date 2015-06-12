@@ -36,6 +36,7 @@ SExpression *getAST(const char *expr)
 
     if (yyparse(&expression, scanner)) {
         // error parsing
+        cout << "syntax error!!" << endl;
         return NULL;
     }
 
@@ -275,6 +276,9 @@ int main(void)
     int testsFailed = 0;
     for(int i = 0; i<tests.size();i++){
       e = getAST(tests[i].term.c_str());
+      if ( e != NULL ) {
+
+
       tests[i].result = evaluate(e);
       printTree(e); cout << endl;
       if(!test(tests[i].expected, tests[i].result, tests[i].term) ){
@@ -284,6 +288,11 @@ int main(void)
       }else
         printf("Test %d \033[1;32mpassed\033[0m\n", i);
         //deleteExpression(e);
+      }
+      else {
+          printf("Test %d \033[1;31m syntax error\033[0m", i+1);
+          cout << endl;
+      }
     }
     printf("%f%% passed. %lu passed, %d failed.\n", ((float)tests.size()-testsFailed)*100/tests.size(), (tests.size()-testsFailed), testsFailed);
     return 0;

@@ -30,7 +30,7 @@ typedef void* yyscan_t;
 %output  "Parser.c"
 %defines "Parser.h"
 
-%define api.pure
+%define api.pure full
 %define parse.error verbose
 %lex-param   { yyscan_t scanner }
 %parse-param { SExpression **expression }
