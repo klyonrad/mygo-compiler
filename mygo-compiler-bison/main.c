@@ -36,7 +36,6 @@ SExpression *getAST(const char *expr)
 
     if (yyparse(&expression, scanner)) {
         // error parsing
-        cout << "syntax error!!" << endl;
         return NULL;
     }
 
@@ -151,73 +150,22 @@ void printTree (SExpression *p, int indent=0) //copied from http://stackoverflow
         if (indent) {
             std::cout << std::setw(indent) << ' ';
         }
-        cout<< OpTypeToString( p->type ) << endl;
-    }
-}
 
-void printGraph (SExpression *e) {
-  switch (e->type) {
-    case eLINE:
-        printGraph(e->left);
-        std::cout << endl;
-        printGraph(e->right);
-        break;
+        switch ( p->type) {
+        case eIDENTIFIER:
+            cout << p->svalue;
+            break;
+        case eVALUE:
+            cout << p->value << " (int)";
+            break;
+        case eFLOAT:
+            cout << p->fvalue << " (float)";
+            break;
+        default:
+            cout<< OpTypeToString( p->type );
+        }
 
-    case eVALUE:
-        cout << e->value;
-        break;
-    case eFLOAT:
-        cout << e->fvalue;
-        break;
-    case eMULTIPLY:
-        cout << "(";
-        printGraph(e->left);
-        std::cout << ") * (" ;
-        printGraph(e->right);
-        cout << ")";
-        break;
-    case ePLUS:
-        cout << "(";
-        printGraph(e->left);
-        std::cout << ") + (" ;
-        printGraph(e->right);
-        cout << ")";
-        break;
-    case eDIVIDE:
-        cout << "(";
-        printGraph(e->left);
-        std::cout << ") / (" ;
-        printGraph(e->right);
-        cout << ")";
-        break;
-    case eMINUS:
-        cout << "(";
-        printGraph(e->left);
-        std::cout << ") - (" ;
-        printGraph(e->right);
-        cout << ")";
-        break;
-    case eIDENTIFIER:
-        cout << e->svalue;
-        break;
-    case eDEKLERATION:
-        printGraph(e->left);
-        std::cout << " := (" ;
-        printGraph(e->right);
-        cout << ")";
-        break;
-    case ePRINT:
-        cout << "println(";
-        printGraph(e->left);
-        cout << ")" << endl;
-        break;
-    case eEOF:
-      // TODO
-      break;
-    default:
-        assert(false);
-        // shouldn't be here
-        cout << "error!";
+        cout << endl;
     }
 }
 
