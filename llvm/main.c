@@ -22,8 +22,7 @@
 #include <iomanip>
 
 using namespace std;
-static map <string, Value*> namedValues;
-
+static map <string, floats> fvalue;
 
 int yyparse(Expression **expression, yyscan_t scanner);
 
