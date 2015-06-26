@@ -4,3 +4,4 @@ Lexer.l
 main.c
 Makefile
 Parser.y
+globals.h

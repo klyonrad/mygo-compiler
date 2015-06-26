@@ -2,7 +2,7 @@
 
 FILES	= Lexer.c Parser.c Expression.c main.c
 CC	= clang++
-CFLAGS	= -g -O3 -std=c++11 -DDEBUG 
+CFLAGS	= -g -O3 -std=c++11 -DDEBUG -w
 LLVMFLAGS = `llvm-config --cxxflags --ldflags --libs core`
 
 all:		$(FILES)

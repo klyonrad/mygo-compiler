@@ -12,6 +12,8 @@
 #include "Parser.h"
 #include "Lexer.h"
 
+#include "globals.h"
+
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -22,7 +24,9 @@
 #include <iomanip>
 
 using namespace std;
-static map <string, floats> fvalue;
+using namespace llvm;
+
+static map <string, float> fvars;
 
 int yyparse(Expression **expression, yyscan_t scanner);
 
@@ -194,6 +198,8 @@ bool test(float expected, float actual, std::string term){
 
 int main(void)
 {
+
+    //LLVMContext& context = getGlobalContext();
 	//bison debug option:
     yydebug = 0;
 	
