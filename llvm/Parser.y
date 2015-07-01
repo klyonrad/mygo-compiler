@@ -51,6 +51,8 @@ typedef void* yyscan_t;
 %token <svalue> TOKEN_IDENTIFIER
 %token TOKEN_LPAREN
 %token TOKEN_RPAREN
+%token TOKEN_LPARENC
+%token TOKEN_RPARENC
 %token TOKEN_PLUS
 %token TOKEN_MINUS
 %token TOKEN_MULTIPLY
@@ -76,20 +78,20 @@ line
     | { $$ = new EOFExpression(); }
     ;	
 expr
-    : id TOKEN_DEKLERATION expr { $$ = new DeklarationExpression($1, $3);}
+    : id[ID] TOKEN_DEKLERATION expr[EXPR] { $$ = new DeklarationExpression($ID, $EXPR);}
+    | id[ID] TOKEN_LPAREN TOKEN_RPAREN TOKEN_LPARENC expr[EXPR] TOKEN_RPARENC { $$ = new FunctionExpression($ID, $EXPR);}
     | expr[L] TOKEN_PLUS expr[R] { $$ = new BiOperationExpression( ePLUS, $L, $R ); }
     | expr[L] TOKEN_MINUS expr[R] { $$ = new BiOperationExpression( eMINUS, $L, $R ); }
     | expr[L] TOKEN_MULTIPLY expr[R] { $$ = new BiOperationExpression( eMULTIPLY, $L, $R ); }
     | expr[L] TOKEN_DIVIDE expr[R] { $$ = new BiOperationExpression( eDIVIDE, $L, $R ); }
-    | TOKEN_LPAREN expr[E] TOKEN_RPAREN { $$ = $E; }
-    | TOKEN_NUMBER { $$ = new IntegerExpression($1); }
-    | TOKEN_FLOAT { $$ = new FloatExpression($1); }
-    | id { $$ = $1; }
-    | TOKEN_PRINT TOKEN_LPAREN expr TOKEN_RPAREN { $$ = new PrintExpression($3); }
-	;
-
+    | TOKEN_LPAREN expr[EXPR] TOKEN_RPAREN { $$ = $EXPR; }
+    | TOKEN_NUMBER[NUM] { $$ = new IntegerExpression($NUM); }
+    | TOKEN_FLOAT[NUM] { $$ = new FloatExpression($NUM); }
+    | id[ID] { $$ = $ID; }
+    | TOKEN_PRINT TOKEN_LPAREN expr[EXPR] TOKEN_RPAREN { $$ = new PrintExpression($EXPR); }
+    ;
 id
-        : TOKEN_IDENTIFIER { $$ = new IdentifierExpression($1); }
-	;
+    : TOKEN_IDENTIFIER[ID] { $$ = new IdentifierExpression($ID); }
+    ;
 
 %%

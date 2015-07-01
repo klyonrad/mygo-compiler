@@ -12,13 +12,15 @@
 %}
 
 %option outfile="Lexer.c" header-file="Lexer.h"
-%option warn nodefault
+%option warn default
 
 %option reentrant noyywrap never-interactive nounistd
 %option bison-bridge
 
 LPAREN      "("
 RPAREN      ")"
+LPARENC     "{"
+RPARENC     "}"
 PLUS        "+"
 MULTIPLY    "*"
 DIVIDE      "/"
@@ -50,6 +52,8 @@ IDENTIFIER  [a-zA-Z]+[a-zA-Z0-9]*
 {DIVIDE}        { return TOKEN_DIVIDE; }
 {LPAREN}        { return TOKEN_LPAREN; }
 {RPAREN}        { return TOKEN_RPAREN; }
+{LPARENC}       { return TOKEN_LPARENC; }
+{RPARENC}       { return TOKEN_RPARENC; }
 .               {  }
 
 %%

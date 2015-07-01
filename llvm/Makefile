@@ -3,10 +3,10 @@
 FILES	= Lexer.c Parser.c Expression.c main.c
 CC	= clang++
 CFLAGS	= -g -O3 -std=c++11 -DDEBUG -w
-LLVMFLAGS = `llvm-config --cxxflags --ldflags --libs core`
+LLVMFLAGS = `llvm-config-3.4 --cxxflags --ldflags --libs core`
 
 all:		$(FILES)
-		$(CC) $(FILES) $(CFLAGS) 
+		$(CC) $(CFLAGS) $(FILES) $(LLVMFLAGS) -o test 
 
 test:		$(FILES)
 		$(CC) $(CFLAGS) $(FILES) $(LLVMFLAGS) -o test 

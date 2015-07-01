@@ -14,6 +14,7 @@ using namespace std;
 using namespace llvm;
 
 static map <string, Value*> namedValues;
+static map <string, float> fvars;
 static Module* llvmModule;
 static IRBuilder<> llvmBuilder(getGlobalContext());
 

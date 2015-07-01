@@ -68,7 +68,7 @@ class DeklarationExpression : public Expression{
             IdentifierExpression* id = dynamic_cast<IdentifierExpression*>(left);
             if(id){
                 Value* value = right->codeGen();
-                new GlobalVariable(value->getType(), false, GlobalValue::CommonLinkage, (ConstantFP*)value, id->name);
+                namedValues[id->name] = value;
                 return value;
             }
             else
@@ -105,8 +105,8 @@ class BiOperationExpression : public Expression{
             Value* lValue = left->codeGen();
             Value* rValue = right->codeGen();
 
-            if(lValue == 0 || rValue == 0)
-                return 0;
+            if(lValue == 0 && rValue == 0)
+                return ConstantFP::get(getGlobalContext(), APFloat(0.0f));
             switch(opType){
                     case ePLUS: return llvmBuilder.CreateFAdd(lValue, rValue, "addtmp");
                     case eMINUS: return llvmBuilder.CreateFSub(lValue, rValue, "subtmp");
@@ -128,5 +128,36 @@ class PrintExpression : public Expression{
         ~PrintExpression(){delete(left);delete(right);}
         PrintExpression(Expression* _param):Expression(_param, NULL, "Print"){}
         virtual Value* codeGen(){}
+};
+
+
+class FunctionExpression : public Expression{
+    public:
+        FunctionExpression(Expression* left, Expression* right):Expression(left, right, "Function"){}
+        virtual Value* codeGen(){
+            std::vector<Type*> args(0, Type::getFloatTy(getGlobalContext()));
+            FunctionType* functionType = FunctionType::get(Type::getFloatTy(getGlobalContext()), args, false);
+            IdentifierExpression* id = dynamic_cast<IdentifierExpression*>(left);
+            if(id){
+                Function* function = Function::Create(functionType, Function::ExternalLinkage, id->name, llvmModule);
+                if (function->getName() != id->name) {
+                  function->eraseFromParent();
+                  function = llvmModule->getFunction(id->name);
+                  if(!function->empty()){
+                      return 0;
+                  }
+                }
+                   BasicBlock* block = BasicBlock::Create(getGlobalContext(), "entry", function);
+                   llvmBuilder.SetInsertPoint(block);
+                   if(Value* retVal = right->codeGen()){
+                       llvmBuilder.CreateRet(retVal);
+                       //verifyFunction(*function);
+                       function->dump();
+                       return function;
+                   }
+                   function->eraseFromParent();
+                   return 0;
+            }
+        }
 };
 #endif // __EXPRESSION_H__

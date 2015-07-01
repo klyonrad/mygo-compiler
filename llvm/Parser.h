@@ -63,11 +63,13 @@ typedef void* yyscan_t;
     TOKEN_IDENTIFIER = 262,
     TOKEN_LPAREN = 263,
     TOKEN_RPAREN = 264,
-    TOKEN_NUMBER = 265,
-    TOKEN_FLOAT = 266,
-    TOKEN_DEKLERATION = 267,
-    TOKEN_SEMICOLON = 268,
-    TOKEN_PRINT = 269
+    TOKEN_LPARENC = 265,
+    TOKEN_RPARENC = 266,
+    TOKEN_NUMBER = 267,
+    TOKEN_FLOAT = 268,
+    TOKEN_DEKLERATION = 269,
+    TOKEN_SEMICOLON = 270,
+    TOKEN_PRINT = 271
   };
 #endif
 
@@ -83,7 +85,7 @@ union YYSTYPE
     char* svalue;
     Expression* expression;
 
-#line 87 "Parser.h" /* yacc.c:1909  */
+#line 89 "Parser.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

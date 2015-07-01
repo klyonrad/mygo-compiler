@@ -26,9 +26,13 @@
 using namespace std;
 using namespace llvm;
 
-static map <string, float> fvars;
-
 int yyparse(Expression **expression, yyscan_t scanner);
+
+extern "C"
+double putchard(double X) {
+  putchar((char)X);
+  return 0;
+}
 
 Expression *getAST(const char *expr)
 {
@@ -202,6 +206,8 @@ int main(void)
     //LLVMContext& context = getGlobalContext();
 	//bison debug option:
     yydebug = 0;
+    LLVMContext &context = getGlobalContext();
+    llvmModule = new Module("Moule of awsomeness", context);
 	
     Expression *e = NULL;
     vector<Test> tests;
@@ -211,6 +217,7 @@ int main(void)
 	tests = {
         // simple int Tests
 
+        /*
         {"4/4;", 1.0, 0},
         {"4-4;", 0.0, 0},
         {"4*4;", 16, 0},
@@ -229,15 +236,17 @@ int main(void)
         {"a := 15; c:= (a + 5); c;", 20.0, 0},
 		//komplexe Tests
         {"vier := 4.5; fuenf := 4.5; vier + fuenf;", 9.0, 0},
-        {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5, 0},
+        {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5, 0},*/
+        {"test(){4*5};"}
         //{"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5, 0},
-        {"println(5);", 0, 0}
+        //{"println(5);", 0, 0}
 	};
 
     printf("\033[1;33mTesting Build\033[0m (%d Tests)..\n", tests.size());
     int testsFailed = 0;
     for(int i = 0; i<tests.size();i++){
       e = getAST(tests[i].term.c_str());
+      e->codeGen();
       if ( e != NULL ) {
 
 
@@ -255,6 +264,7 @@ int main(void)
           printf("Test %d \033[1;31m syntax error\033[0m", i+1);
           cout << endl;
       }
+      llvmModule->dump();
     }
     printf("%f%% passed. %lu passed, %d failed.\n", ((float)tests.size()-testsFailed)*100/tests.size(), (tests.size()-testsFailed), testsFailed);
     return 0;
