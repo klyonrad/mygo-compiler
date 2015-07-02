@@ -340,10 +340,13 @@ sftp-config.json
 # Notepad++ backups #
 *.bak
 
-### flex output ###
+### flex & bison output ###
 mygo-compiler-bison/test.dSYM
 lex.yy.c
 Lexer.c
+Lexer.h
+Parser.h
+Parser.c
 mygo-compiler-bison/Parser.h
 mygo-compiler-bison/Parser.c
 mygo-compiler-bison/Lexer.h
