@@ -62,6 +62,7 @@ typedef void* yyscan_t;
 %token TOKEN_DEKLERATION;
 %token TOKEN_SEMICOLON;
 %token TOKEN_PRINT;
+%token TOKEN_FUNCDEF
 
 %type <expression> expr
 %type <expression> id
@@ -79,7 +80,7 @@ line
     ;	
 expr
     : id[ID] TOKEN_DEKLERATION expr[EXPR] { $$ = new DeklarationExpression($ID, $EXPR);}
-    | id[ID] TOKEN_LPAREN TOKEN_RPAREN TOKEN_LPARENC expr[EXPR] TOKEN_RPARENC { $$ = new FunctionExpression($ID, $EXPR);}
+    | TOKEN_FUNCDEF id[ID] TOKEN_LPAREN TOKEN_RPAREN TOKEN_LPARENC expr[EXPR] TOKEN_RPARENC { $$ = new FunctionExpression($ID, $EXPR); }
     | expr[L] TOKEN_PLUS expr[R] { $$ = new BiOperationExpression( ePLUS, $L, $R ); }
     | expr[L] TOKEN_MINUS expr[R] { $$ = new BiOperationExpression( eMINUS, $L, $R ); }
     | expr[L] TOKEN_MULTIPLY expr[R] { $$ = new BiOperationExpression( eMULTIPLY, $L, $R ); }

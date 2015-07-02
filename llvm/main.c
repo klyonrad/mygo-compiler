@@ -207,7 +207,7 @@ int main(void)
 	//bison debug option:
     yydebug = 0;
     LLVMContext &context = getGlobalContext();
-    llvmModule = new Module("Moule of awsomeness", context);
+    llvmModule = new Module("myModule", context);
 	
     Expression *e = NULL;
     vector<Test> tests;
@@ -237,7 +237,7 @@ int main(void)
 		//komplexe Tests
         {"vier := 4.5; fuenf := 4.5; vier + fuenf;", 9.0, 0},
         {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5, 0},*/
-        {"test(){4*5};"}
+        {"vier:=4; func test(){vier*5};"}
         //{"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5, 0},
         //{"println(5);", 0, 0}
 	};

@@ -134,7 +134,7 @@ class PrintExpression : public Expression{
 class FunctionExpression : public Expression{
     public:
         FunctionExpression(Expression* left, Expression* right):Expression(left, right, "Function"){}
-        virtual Value* codeGen(){
+        virtual llvm::Function* codeGen(){
             std::vector<Type*> args(0, Type::getFloatTy(getGlobalContext()));
             FunctionType* functionType = FunctionType::get(Type::getFloatTy(getGlobalContext()), args, false);
             IdentifierExpression* id = dynamic_cast<IdentifierExpression*>(left);
