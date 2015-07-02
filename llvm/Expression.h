@@ -184,4 +184,9 @@ class mainFuncExpression : public Expression{
             return 0;
 		}
 };
+
+class FunctionCallExpression : public Expression{ //stub
+	public:
+		FunctionCallExpression(Expression* left, Expression* right):Expression(left, right, "FunctionCall"){}
+};
 #endif // __EXPRESSION_H__
