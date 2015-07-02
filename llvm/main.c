@@ -205,7 +205,7 @@ int main(void)
 
     //LLVMContext& context = getGlobalContext();
 	//bison debug option:
-    yydebug = 0;
+    //yydebug = 0;
     LLVMContext &context = getGlobalContext();
     llvmModule = new Module("myModule", context);
 	
@@ -237,7 +237,7 @@ int main(void)
 		//komplexe Tests
         {"vier := 4.5; fuenf := 4.5; vier + fuenf;", 9.0, 0},
         {"4 + ( 2 * 10 ) - ( 3 / ( 5 + 1 ) );", 23.5, 0},*/
-        {"vier:=4; func test(){vier*5};"}
+        {"func main(){vier := 4; fuenf := 5; vier*fuenf; }"}
         //{"vier := 4; fuenf := 5; vier + ( 2 * 10 ) - ( 3 / ( fuenf + 1 ) );", 23.5, 0},
         //{"println(5);", 0, 0}
 	};
