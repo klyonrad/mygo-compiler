@@ -13,10 +13,11 @@
 using namespace std;
 using namespace llvm;
 
-static map <string, Value*> namedValues;
-static map <string, float> fvars;
-static Module* llvmModule;
-static IRBuilder<> llvmBuilder(getGlobalContext());
+//not static!!! extern as a quick hack to fix llvm::Module visibility
+extern map <string, Value*> namedValues;
+extern map <string, float> fvars;
+extern Module* llvmModule;
+extern IRBuilder<> llvmBuilder;
 
 
 #endif // GLOBALS_H

@@ -14,6 +14,11 @@
 
 #include "globals.h"
 
+ map <string, Value*> namedValues;
+ map <string, float> fvars;
+ Module* llvmModule;
+ IRBuilder<> llvmBuilder(getGlobalContext());
+
 #include <stdio.h>
 #include <string>
 #include <vector>

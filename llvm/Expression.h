@@ -139,11 +139,14 @@ class FunctionExpression : public Expression{
             FunctionType* functionType = FunctionType::get(Type::getFloatTy(getGlobalContext()), args, false);
             IdentifierExpression* id = dynamic_cast<IdentifierExpression*>(left);
             if(id){
+				if (!llvmModule) cerr << "llvmModule == nullptr?!?" << endl;
+					
                 Function* function = Function::Create(functionType, Function::ExternalLinkage, id->name, llvmModule);
                 if (function->getName() != id->name) {
                   function->eraseFromParent();
                   function = llvmModule->getFunction(id->name);
                   if(!function->empty()){
+					  cerr << "is empty surprise" << endl;
                       return 0;
                   }
                 }
@@ -155,8 +158,11 @@ class FunctionExpression : public Expression{
                        function->dump();
                        return function;
                    }
-                   function->eraseFromParent();
-                   return 0;
+				   else {
+	 				  	cerr << "is nullptr suprise" << endl;
+	                    function->eraseFromParent();
+	                    return 0;
+				   }
             }
         }
 };
