@@ -151,37 +151,13 @@ class FunctionExpression : public Expression{
                    llvmBuilder.SetInsertPoint(block);
                    if(Value* retVal = right->codeGen()){
                        llvmBuilder.CreateRet(retVal);
-                       verifyFunction(*function);
+                       //verifyFunction(*function);
                        function->dump();
                        return function;
                    }
-				   //error reading body, remove function
                    function->eraseFromParent();
                    return 0;
             }
         }
-};
-
-class mainFuncExpression : public Expression{
-	public:
-		mainFuncExpression(Expression* right):Expression(NULL, right, "mainFunc"){}
-		virtual llvm::Function* codeGen(){
-            std::vector<Type*> args(0, Type::getFloatTy(getGlobalContext()));
-            FunctionType* functionType = FunctionType::get(Type::getFloatTy(getGlobalContext()), args, false);
-			
-			Function* mainFunction = llvm::Function::Create(functionType, llvm::Function::ExternalLinkage, "main", llvmModule);
-            BasicBlock* block = BasicBlock::Create(getGlobalContext(), "entry", mainFunction);
-            llvmBuilder.SetInsertPoint(block);
-			
-            if(Value* retVal = right->codeGen()){
-                llvmBuilder.CreateRet(retVal);
-                verifyFunction(*mainFunction);
-                mainFunction->dump();
-                return mainFunction;
-            }
-			//error reading body, remove function
-            mainFunction->eraseFromParent();
-            return 0;
-		}
 };
 #endif // __EXPRESSION_H__
