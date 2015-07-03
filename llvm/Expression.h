@@ -166,4 +166,27 @@ class FunctionExpression : public Expression{
             }
         }
 };
+
+
+class FunctionCallExpression : public Expression{
+	public:
+		FunctionCallExpression(Expression* left):Expression(left, NULL, "FunctionCall"){}
+		virtual llvm::Value *codeGen() {
+            IdentifierExpression* functionID = dynamic_cast<IdentifierExpression*>(left);
+			
+            if(functionID){
+			    // Look up the name in the global module table.
+			    Function* calleeF = llvmModule->getFunction(functionID->name);
+			    if (calleeF == 0) {
+					cerr << "Unknown function referenced" << endl;
+			    	return 0;
+			    }
+			    std::vector<Value*> args;
+			    return llvmBuilder.CreateCall(calleeF, args, "calltmp");
+			} else {
+				return 0;
+			}
+		}
+};
+
 #endif // __EXPRESSION_H__

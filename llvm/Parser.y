@@ -81,6 +81,7 @@ line
 expr
     : id[ID] TOKEN_DEKLERATION expr[EXPR] { $$ = new DeklarationExpression($ID, $EXPR);}
     | TOKEN_FUNCDEF id[ID] TOKEN_LPAREN TOKEN_RPAREN TOKEN_LPARENC expr[EXPR] TOKEN_RPARENC { $$ = new FunctionExpression($ID, $EXPR); }
+	| id[ID] TOKEN_LPAREN TOKEN_RPAREN { $$ = new FunctionCallExpression($ID); }
     | expr[L] TOKEN_PLUS expr[R] { $$ = new BiOperationExpression( ePLUS, $L, $R ); }
     | expr[L] TOKEN_MINUS expr[R] { $$ = new BiOperationExpression( eMINUS, $L, $R ); }
     | expr[L] TOKEN_MULTIPLY expr[R] { $$ = new BiOperationExpression( eMULTIPLY, $L, $R ); }
